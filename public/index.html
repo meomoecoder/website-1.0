@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buku Tamu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Buku Tamu</h1>
+    <form action="/submit" method="POST">
+        <input type="text" name="name" placeholder="Nama" required>
+        <textarea name="message" placeholder="Pesan" required></textarea>
+        <button type="submit">Kirim</button>
+    </form>
+
+    <h2>Pesan:</h2>
+    <div id="messages"></div>
+
+    <script>
+        async function loadMessages() {
+            const res = await fetch('/messages');
+            const data = await res.json();
+            document.getElementById("messages").innerHTML =
+                data.map(m => `<p><strong>${m.name}</strong>: ${m.message}</p>`).join("");
+        }
+        loadMessages();
+    </script>
+</body>
+</html>
